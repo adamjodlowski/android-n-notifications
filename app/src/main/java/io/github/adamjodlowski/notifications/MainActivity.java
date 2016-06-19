@@ -12,7 +12,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
-    private int notificationId = 1;
+    public static int NOTIFICATION_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +43,14 @@ public class MainActivity extends AppCompatActivity {
                     .setSmallIcon(android.R.drawable.ic_dialog_info)
                     .setContentTitle("Something important happened")
                     .setContentText("See the details")
+                    .setAutoCancel(true)
                     .setContentIntent(detailsPendingIntent)
-                    .setAutoCancel(true);
+                    .addAction(android.R.drawable.ic_menu_compass, "Details", detailsPendingIntent)
+                    .addAction(android.R.drawable.ic_menu_directions, "Show Map", detailsPendingIntent);
 
             // Obtain NotificationManager system service in order to show the notification
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.notify(notificationId, mBuilder.build());
+            notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 
         }
     };
